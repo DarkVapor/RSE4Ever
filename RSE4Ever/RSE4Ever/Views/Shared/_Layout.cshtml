@@ -1,0 +1,61 @@
+﻿@using RequireJsNet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/BForms")
+
+    @*For IE7-8 support of HTML5 elements and responsive*@
+    <!--[if lt IE 9]>
+      <script src="@Url.Content("~/Scripts/BForms/Bundles/js/iefix.js")"
+      type="text/javascript">
+      </script>
+    <![endif]-->
+
+</head>
+<body>
+    @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+{
+    // the url from where require.js will be loaded
+    RequireJsUrl = Url.Content("~/Scripts/BForms/Components/RequireJS/require.js"),
+    // baseUrl to be passed to require.js, will be used when composing urls for scripts
+    BaseUrl = Url.Content("~/Scripts/"),
+    // a list of all the configuration files you want to load
+    ConfigurationFiles = new[] { "~/Scripts/BForms/RequireJS.json" },
+ })
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
